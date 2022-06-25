@@ -8,11 +8,25 @@ on:
 
 jobs:
 
-  build:
+  build_docker_image:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Cache Docker Layer
+      id: cache-docker
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-docker-layer
+      with:
+        path: /var/lib/docker
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/image/overlay2/repositories.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
