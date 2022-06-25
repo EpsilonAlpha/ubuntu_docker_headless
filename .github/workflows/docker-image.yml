@@ -13,7 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+    
+    - name: Create Directory
+      run: mkdir -p /var/lib/docker
     
     - name: Cache Docker Layer
       id: cache-docker
@@ -30,3 +34,7 @@ jobs:
     
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Make cache accessible to caching action (put this at the end of yml)
+      run: |
+        sudo chown $(whoami):$(whoami) -R /var/lib/docker
