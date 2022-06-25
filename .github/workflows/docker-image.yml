@@ -16,15 +16,5 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
     
-    - name: Create Directory
-      run: mkdir -p /var/lib/docker
-    
-    - name: Cache Docker
-      uses: ScribeMD/docker-cache@0.1.4
-      with:
-        key: ${{ runner.os }}-build-cache-docker-layer-${{ hashFiles('**/image/overlay2/repositories.json') }}
-    
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
-# Comment
