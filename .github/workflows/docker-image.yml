@@ -19,22 +19,11 @@ jobs:
     - name: Create Directory
       run: mkdir -p /var/lib/docker
     
-    - name: Cache Docker Layer
-      id: cache-docker
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-docker-layer
+    - name: Cache Docker
+      uses: ScribeMD/docker-cache@0.1.4
       with:
-        path: /var/lib/docker
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/image/overlay2/repositories.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+        key: ${{ runner.os }}-build-cache-docker-layer-${{ hashFiles('**/image/overlay2/repositories.json') }}
     
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
-    - name: Make cache accessible to caching action (put this at the end of yml)
-      run: |
-        sudo chown $(whoami):$(whoami) -R /var/lib/docker
