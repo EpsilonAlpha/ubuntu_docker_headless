@@ -18,22 +18,3 @@ jobs:
     
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ubuntu_headless:$(date +%s)
-        
-    - name: Scan Docker Tags
-      # You may pin to the exact commit or the version.
-      # uses: dhet/scan-docker-tags-action@5c0430439e857804aea70d448e804a7cd3e9cc8f
-      uses: dhet/scan-docker-tags-action@v1.0.1
-      with:
-        # The Docker image to scan (sans tag), e.g. "mhart/alpine-node"
-        image: epsilonalpha/ubuntu_headless
-        # The maximum age of tags in minutes. Older tags are discarded
-        max-age-minutes: 3
-        # The username used to authenticate against the Docker repository
-        username: ${{ secrets.DOCKER_USER }}
-        # The password used to authenticate against the Docker repository
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        # An optional regular expression for filtering tags. Backslashes need to be escaped. E.g. `\\d+\\.\\d+$` matches  semver, `latest` matches only the "latest" tag
-
-        tag-regex: # optional, default is .*
-        # The URL of the Docker registry. Defaults to Dockerhub (https://hub.docker.com)
-        repo-url: https://hub.docker.com/repository/docker/epsilonalpha/ubuntu_headless
