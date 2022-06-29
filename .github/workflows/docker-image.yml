@@ -24,6 +24,7 @@ jobs:
       # uses: opspresso/action-docker@233ac522cc300320464ddd95cee4059986cc1587
       uses: opspresso/action-docker@v0.4.0
       env:
+        IMAGE_NAME: ubuntu_headless
         USERNAME: ${{ secrets.DOCKER_USER }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         TAG_NAME: latest
