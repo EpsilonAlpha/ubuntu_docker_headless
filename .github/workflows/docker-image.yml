@@ -36,4 +36,4 @@ jobs:
         logout: true
         
     - name: Push the Image
-      run: docker push -a ubuntu_headless:$(date +%s)
+      run: docker push -a ubuntu_headless
