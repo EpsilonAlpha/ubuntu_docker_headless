@@ -36,4 +36,4 @@ jobs:
 
         tag-regex: # optional, default is .*
         # The URL of the Docker registry. Defaults to Dockerhub (https://hub.docker.com)
-        repo-url: # optional, default is https://hub.docker.com
+        repo-url: https://hub.docker.com/repository/docker/epsilonalpha/ubuntu_headless
