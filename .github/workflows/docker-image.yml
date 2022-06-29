@@ -19,7 +19,12 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ubuntu_headless:$(date +%s) --tag ubuntu_headless:latest
       
-    - name: Upload image
+    - name: Upload image latest
       uses: ishworkh/docker-image-artifact-upload@v1
       with:
         image: "ubuntu_headless:latest"
+
+    - name: Upload image date
+      uses: ishworkh/docker-image-artifact-upload@v1
+      with:
+        image: "ubuntu_headless:$(date +%s)"
