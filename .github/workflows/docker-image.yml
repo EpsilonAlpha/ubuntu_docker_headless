@@ -23,8 +23,3 @@ jobs:
       uses: ishworkh/docker-image-artifact-upload@v1
       with:
         image: "ubuntu_headless:latest"
-
-    - name: Upload image date
-      uses: ishworkh/docker-image-artifact-upload@v1
-      with:
-        image: "ubuntu_headless:$(date +%s)"
