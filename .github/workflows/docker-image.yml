@@ -40,5 +40,5 @@ jobs:
       run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
 
     - name: Push the image to Docker Hub
-      run: docker push epsilonalpha/ubuntu_headless
+      run: docker push ubuntu_headless
     
