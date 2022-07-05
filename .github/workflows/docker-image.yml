@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "docker*","github*" ]
 
+env:
+  IMAGENAME: ubuntu_headless
+  IMAGETAG: latest
+
 jobs:
 
   build_docker_image:
@@ -17,12 +21,12 @@ jobs:
       uses: actions/checkout@v3
     
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ubuntu_headless:$(date +%s) --tag ubuntu_headless:latest
+      run: docker build . --file Dockerfile --tag ${{ env.IMAGENAME }}:$(date +%s) --tag ${{ env.IMAGENAME }}:${{ env.IMAGETAG }}
       
     - name: Upload image latest
       uses: ishworkh/docker-image-artifact-upload@v1
       with:
-        image: "ubuntu_headless:latest"
+        image: "${{ env.IMAGENAME }}:${{ env.IMAGETAG }}"
 
   upload_to_docker_hub:
     needs: build_docker_image
@@ -34,11 +38,11 @@ jobs:
     - name: Download the Latest Image
       uses: ishworkh/docker-image-artifact-download@v1
       with:
-        image: "ubuntu_headless:latest"
+        image: "${{ env.IMAGENAME }}:${{ env.IMAGETAG }}"
 
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
 
     - name: Push the image to Docker Hub
-      run: docker push ubuntu_headless
+      run: docker push ${{ env.IMAGENAME }}
     
