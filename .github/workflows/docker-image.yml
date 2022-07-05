@@ -12,24 +12,7 @@ env:
 
 jobs:
 
-  build_docker_image:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.IMAGENAME }}:$(date +%s) --tag ${{ env.IMAGENAME }}:${{ env.IMAGETAG }}
-      
-    - name: Upload image latest
-      uses: ishworkh/docker-image-artifact-upload@v1
-      with:
-        image: "${{ env.IMAGENAME }}:${{ env.IMAGETAG }}"
-
-  upload_to_docker_hub:
-    needs: build_docker_image
+  build_and_upload_to_docker_hub:
 
     runs-on: ubuntu-latest
 
@@ -37,11 +20,6 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     
-    - name: Download the Latest Image
-      uses: ishworkh/docker-image-artifact-download@v1
-      with:
-        image: "${{ env.IMAGENAME }}:${{ env.IMAGETAG }}"
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
     
@@ -51,12 +29,12 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: List Docker Images
-      run: docker images
-
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
         push: true
         tags: ${{ secrets.DOCKER_USER }}/${{ env.IMAGENAME }}:${{ env.IMAGETAG }}
     
+    - name: List Docker Images
+      run: docker images
+
