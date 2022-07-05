@@ -43,6 +43,9 @@ jobs:
     - name: Login to Docker Hub
       run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
 
+    - name: List Docker Images
+      run: docker images
+
     - name: Push the image to Docker Hub
-      run: docker push ${{ env.IMAGENAME }}
+      run: docker push ${{ secrets.DOCKER_USER }}/${{ env.IMAGENAME }}:${{ env.IMAGETAG }}
     
