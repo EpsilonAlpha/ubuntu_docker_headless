@@ -12,3 +12,4 @@ ENV LANG de_DE.utf8
 RUN apt-get install -y screen tree tmux bmon vim fping dnsutils
 
 # clean up after all installs
+RUN rm -rf /var/lib/apt/lists/*
