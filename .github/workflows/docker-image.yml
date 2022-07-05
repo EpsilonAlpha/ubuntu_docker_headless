@@ -23,3 +23,22 @@ jobs:
       uses: ishworkh/docker-image-artifact-upload@v1
       with:
         image: "ubuntu_headless:latest"
+
+  upload_to_docker_hub:
+    needs: build_docker_image
+    
+    runs-on: ubuntu-latest
+
+    steps: 
+    
+    - name: Download the Latest Image
+      uses: ishworkh/docker-image-artifact-download@v1
+      with:
+        image: "ubuntu_headless:latest"
+
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secret.DOCKER_USER }} -p ${{ secret.DOCKER_PASSWORD }} docker.io
+
+    - name: Push the image to Docker Hub
+      run: docker push ubuntu_headless:latest
+    
