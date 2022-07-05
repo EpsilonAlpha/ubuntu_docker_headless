@@ -47,5 +47,5 @@ jobs:
       run: docker images
 
     - name: Push the image to Docker Hub
-      run: docker push ${{ env.IMAGENAME }}
+      run: docker -v push ${{ env.IMAGENAME }}
     
