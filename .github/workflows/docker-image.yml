@@ -47,5 +47,5 @@ jobs:
       run: docker images
 
     - name: Push the image to Docker Hub
-      run: docker push ${{ secrets.DOCKER_USER }}/${{ env.IMAGENAME }}:${{ env.IMAGETAG }}
+      run: docker push ${{ secrets.DOCKER_USER }}/${{ env.IMAGENAME }}
     
