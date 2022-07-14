@@ -5,6 +5,8 @@ on:
     branches: [ "docker*","github*" ]
   pull_request:
     branches: [ "docker*","github*" ]
+  workflow_dispatch:
+
 
 env:
   IMAGENAME: ubuntu_headless
