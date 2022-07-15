@@ -39,10 +39,12 @@ jobs:
         tags: ${{ env.TEST_TAG }}
     
     - name: Test
+      id: testrun
       run: |
         docker run --rm ${{ env.TEST_TAG }}
 
     - name: Build and push
+      if: steps.testrun.Result == False
       uses: docker/build-push-action@v3
       with:
         push: true
