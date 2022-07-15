@@ -11,6 +11,7 @@ on:
 env:
   IMAGENAME: ubuntu_headless
   IMAGETAG: latest
+  TEST_TAG: user/myapp:test
 
 jobs:
 
@@ -30,6 +31,17 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        load: true
+        tags: ${{ env.TEST_TAG }}
+    
+    - name: Test
+      run: |
+        docker run --rm ${{ env.TEST_TAG }}
 
     - name: Build and push
       uses: docker/build-push-action@v3
