@@ -40,11 +40,12 @@ jobs:
     
     - name: Test if the Image is even running
       run: |
-        docker run ${{ env.TEST_TAG }}
+        docker run -rm ${{ env.TEST_TAG }}
 
     - name: Test if it can run a Bash Shell
       run: |
-         docker exec -it myapp bash
+         docker run ${{ env.TEST_TAG }}
+         docker exec -it ${{ env.TEST_TAG }} bash
 
     - name: Build and push
       uses: docker/build-push-action@v3
