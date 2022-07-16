@@ -40,7 +40,7 @@ jobs:
     
     - name: Test if the Image is even running
       run: |
-        docker run --rm ${{ env.TEST_TAG }}
+        docker run ${{ env.TEST_TAG }}
 
     - name: Test if it can run a Bash Shell
       run: |
