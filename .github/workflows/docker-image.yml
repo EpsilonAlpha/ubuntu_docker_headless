@@ -45,7 +45,7 @@ jobs:
     - name: Test if it can run a Bash Shell
       run: |
          docker run ${{ env.TEST_TAG }}
-         docker exec -it ${{ env.TEST_TAG }} bash
+         docker ps
 
     - name: Build and push
       uses: docker/build-push-action@v3
