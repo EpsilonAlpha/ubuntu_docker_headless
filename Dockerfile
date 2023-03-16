@@ -1,5 +1,5 @@
 # start from Ubuntu Image latest
-FROM ubuntu:23.04
+FROM ubuntu:latest
 
 # refresh the things
 RUN apt-get update 
