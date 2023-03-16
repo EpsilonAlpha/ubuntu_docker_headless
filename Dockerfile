@@ -9,7 +9,7 @@ RUN apt-get install -y --no-install-recommends locales && \
 ENV LANG de_DE.utf8
 
 # terminalstuff
-RUN apt-get install -y --no-install-recommends screen tree tmux bmon vim fping dnsutils
+RUN apt-get install -y --no-install-recommends screen tree tmux bmon vim fping dnsutils openssh
 
 # clean up after all installs
 RUN rm -rf /var/lib/apt/lists/*
