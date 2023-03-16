@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "docker*","github*" ]
+    branches: [ "master","docker*","github*" ]
   pull_request:
-    branches: [ "docker*","github*" ]
+    branches: [ "master","docker*","github*" ]
   workflow_dispatch:
 
 
